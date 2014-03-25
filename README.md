@@ -1,4 +1,4 @@
-duplicator.el
-=============
+duplicator
+==========
 
 under development
