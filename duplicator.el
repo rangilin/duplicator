@@ -25,7 +25,19 @@
 ;;; Code:
 
 (defun duplicator/duplicate-lines ()
-  (interactive))
+  "Duplicate lines. If no region is active, duplicate current line"
+  (interactive)
+  (let ((line (duplicator--chomp (substring-no-properties (thing-at-point 'line)))))
+    (end-of-line)
+    (newline)
+    (insert line)))
 
+(defun duplicator--chomp (str)
+  "Remove leading/trailing whitespace of string "
+  (replace-regexp-in-string
+   (rx (or (: bos (* (any " \t\n")))
+           (: (* (any " \t\n")) eos)))
+   ""
+   str))
 (provide 'duplicator)
 ;;; duplicator.el ends here
