@@ -15,18 +15,9 @@
 (require 'espuds)
 (require 'ert)
 
-(Setup
- ;; Before anything has run
- )
-
 (Before
- ;; Before each scenario is run
- )
-
-(After
- ;; After each scenario is run
- )
-
-(Teardown
- ;; After when everything has been run
- )
+ (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
+ (transient-mark-mode 1)
+ (switch-to-buffer
+  (get-buffer-create "*duplicator*"))
+ (erase-buffer))

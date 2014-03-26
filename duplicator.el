@@ -24,5 +24,8 @@
 
 ;;; Code:
 
+(defun duplicator/duplicate-lines ()
+  (interactive))
+
 (provide 'duplicator)
 ;;; duplicator.el ends here
