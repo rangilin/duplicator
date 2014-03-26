@@ -27,10 +27,12 @@
 (defun duplicator/duplicate-lines ()
   "Duplicate lines. If no region is active, duplicate current line"
   (interactive)
-  (let ((line (duplicator--strip-end-newline (substring-no-properties (thing-at-point 'line)))))
+  (let ((line (duplicator--strip-end-newline (substring-no-properties (thing-at-point 'line))))
+        (column (current-column)))
     (end-of-line)
     (newline)
-    (insert line)))
+    (insert line)
+    (move-to-column column)))
 
 (defun duplicator--strip-end-newline (str)
   "Remove trailing newline of string "
