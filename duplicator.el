@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2014 Rangi Lin
 
-;; Author: Rangi Lin <rangiltw@gmail.com>
-;; Version: 0.0.0
+;; Author: Rangi Lin <rangiltw at google mail>
+;; Version: 0.1.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,19 +25,20 @@
 ;;; Code:
 
 (defun duplicator/duplicate-lines ()
-  "Duplicate lines. If no region is active, duplicate current line"
+  "Duplicate lines. If region is not active, duplicate current line,
+otherwise duplicate all lines across the region."
   (interactive)
-  (let ((line (duplicator--strip-end-newline (substring-no-properties (thing-at-point 'line))))
+  (let ((line (duplicator--add-trailing-newline (substring-no-properties (thing-at-point 'line))))
         (column (current-column)))
-    (end-of-line)
-    (newline)
+    (beginning-of-line)
     (insert line)
     (move-to-column column)))
 
-(defun duplicator--strip-end-newline (str)
-  "Remove trailing newline of string "
-  (replace-regexp-in-string
-   (rx (: (* (char "\n")) eos)) "" str))
+(defun duplicator--add-trailing-newline (string)
+  "Return string with a leading newline character"
+  (if (string-match "\n$" string)
+      string
+    (concat string "\n")))
 
 (provide 'duplicator)
 ;;; duplicator.el ends here
