@@ -66,3 +66,24 @@ Feature: Duplicate Lines
     The quick brown fox
     jumps over the lazy dog
     """
+
+  Scenario: After duplicate lines in region,  point will be placed at same column in newer lines
+    Given I insert:
+    """
+    123456789
+    000000000
+
+    """
+    And I go to point "5"
+    And I set the mark
+    And I go to point "15"
+    When I press "C-c d"
+    Then I should see:
+    """
+    123456789
+    000000000
+    123456789
+    000000000
+
+    """
+    And the cursor should be at point "25"

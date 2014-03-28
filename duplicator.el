@@ -5,6 +5,8 @@
 ;; Author: Rangi Lin <rangiltw at google mail>
 ;; Version: 0.1.0
 
+;; This file is not part of GNU Emacs.
+
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
@@ -20,18 +22,43 @@
 
 ;;; Commentary:
 
+;; Duplicator is a small plugin that duplicate lines.
 ;;
+;; 1. it never pollute kill ring
+;; 2. it duplicate whole lines across region even if region didn't select all
+
+;; Usage:
+;;
+;; (require 'duplicator)
+;; (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
 
 ;;; Code:
 
 (defun duplicator/duplicate-lines ()
   "Duplicate lines. If region is not active, duplicate current line,
-otherwise duplicate all lines across the region."
+otherwise duplicate whole lines across the region."
   (interactive)
-  (let ((line (duplicator--add-trailing-newline (substring-no-properties (thing-at-point 'line))))
+  (if (region-active-p)
+      (duplicator--duplicate-whole-lines-in-region)
+    (duplicator--duplicate-current-line)))
+
+(defun duplicator--duplicate-whole-lines-in-region ()
+  "Duplicate whole lines across the current region"
+  (let* ((pair (duplicator--whole-line-point-pair))
+         (start (car pair))
+         (end (cdr pair))
+         (lines (substring-no-properties (filter-buffer-substring start end)))
+         (column (current-column)))
+    (goto-char start)
+    (insert (duplicator--add-trailing-newline lines))
+    (move-to-column column)))
+
+(defun duplicator--duplicate-current-line ()
+  "Duplicate current lines"
+  (let ((current-line (substring-no-properties (thing-at-point 'line)))
         (column (current-column)))
     (beginning-of-line)
-    (insert line)
+    (insert (duplicator--add-trailing-newline current-line))
     (move-to-column column)))
 
 (defun duplicator--add-trailing-newline (string)
@@ -39,6 +66,16 @@ otherwise duplicate all lines across the region."
   (if (string-match "\n$" string)
       string
     (concat string "\n")))
+
+(defun duplicator--whole-line-point-pair ()
+  "Return a cons cell according to given point and mark position. First argument is point
+of beginning of the line where region starts, second argument is the point of end of the
+line where region ends"
+  (let ((num-of-lines (count-lines (point) (mark))))
+    (cond
+     ((< (point) (mark)) (cons (line-beginning-position) (line-end-position num-of-lines)))
+     ((> (point) (mark)) (cons (line-beginning-position (- (- num-of-lines 1))) (line-end-position)))
+     (t (cons (line-beginning-position) (line-end-position))))))
 
 (provide 'duplicator)
 ;;; duplicator.el ends here
