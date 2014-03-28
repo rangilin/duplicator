@@ -7,9 +7,10 @@ Duplicator is a small package that help you duplicate lines.
 2. It duplicate whole lines across region even if region didn't cover all
 
 ## Usage:
-
+```lisp
 (require 'duplicator)
 (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
+```
 
 ## Limitations:
 enable transient-mark-mode is required
