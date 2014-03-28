@@ -32,7 +32,7 @@
 ;; (require 'duplicator)
 ;; (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
 
-;; ## limitations:
+;; ## Limitations:
 ;; enable transient-mark-mode is required
 
 ;;; Code:

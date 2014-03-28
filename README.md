@@ -11,7 +11,7 @@ Duplicator is a small package that help you duplicate lines.
 (require 'duplicator)
 (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
 
-## limitations:
+## Limitations:
 enable transient-mark-mode is required
 
 ## Change Log:
