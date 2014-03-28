@@ -67,6 +67,7 @@ Feature: Duplicate Lines
     jumps over the lazy dog
     """
 
+
   Scenario: After duplicate lines in region,  point will be placed at same column in newer lines
     Given I insert:
     """
@@ -87,3 +88,50 @@ Feature: Duplicate Lines
 
     """
     And the cursor should be at point "25"
+
+
+  Scenario: Duplicate current line should never pollute kill ring
+    Given Kill ring is empty
+    And I insert:
+    """
+    123456789
+    000000000
+
+    """
+    And I select "12345"
+    And I copy current region
+    And I place the cursor after "0"
+    When I press "C-c d"
+    Then I should see:
+    """
+    123456789
+    000000000
+    000000000
+
+    """
+    And Kill ring should contains 1 records
+
+
+  Scenario: Duplicate whole lines in region should never pollute kill ring
+    Given Kill ring is empty
+    And I insert:
+    """
+    123456789
+    000000000
+
+    """
+    And I select "12345"
+    And I copy current region
+    And I place the cursor after "5"
+    And I set the mark
+    And I place the cursor after "0"
+    When I press "C-c d"
+    Then I should see:
+    """
+    123456789
+    000000000
+    123456789
+    000000000
+
+    """
+    And Kill ring should contains 1 records
