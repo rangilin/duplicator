@@ -22,15 +22,18 @@
 
 ;;; Commentary:
 
-;; Duplicator is a small plugin that duplicate lines.
+;; Duplicator is a small package that help you duplicate lines.
 ;;
-;; 1. it never pollute kill ring
-;; 2. it duplicate whole lines across region even if region didn't select all
+;; 1. It never pollute kill ring
+;; 2. It duplicate whole lines across region even if region didn't cover all
 
-;; Usage:
+;; ## Usage:
 ;;
 ;; (require 'duplicator)
 ;; (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
+
+;; ## limitations:
+;; enable transient-mark-mode is required
 
 ;;; Code:
 
