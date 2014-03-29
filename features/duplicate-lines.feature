@@ -135,3 +135,44 @@ Feature: Duplicate Lines
 
     """
     And Kill ring should contains 1 records
+
+
+  Scenario: Duplicate current line execute multiple time with prefix argument
+    Given I insert:
+    """
+    The quick brown fox jumps over the lazy dog
+
+    """
+    And I place the cursor before "quick"
+    When I press "C-u 4 C-c d"
+    Then I should see:
+    """
+    The quick brown fox jumps over the lazy dog
+    The quick brown fox jumps over the lazy dog
+    The quick brown fox jumps over the lazy dog
+    The quick brown fox jumps over the lazy dog
+
+    """
+
+
+  Scenario: Duplicate lines in region execute multiple time with prefix argument
+    Given I insert:
+    """
+    The quick brown fox
+    jumps over the lazy dog
+    """
+    And I place the cursor after "quick"
+    And I set the mark
+    And I place the cursor after "over"
+    When I press "C-u 3 C-c d"
+    Then I should see:
+    """
+    The quick brown fox
+    jumps over the lazy dog
+    The quick brown fox
+    jumps over the lazy dog
+    The quick brown fox
+    jumps over the lazy dog
+    The quick brown fox
+    jumps over the lazy dog
+    """

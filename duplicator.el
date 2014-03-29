@@ -37,13 +37,15 @@
 
 ;;; Code:
 
-(defun duplicator/duplicate-lines ()
-  "Duplicate lines. If region is not active, duplicate current line,
-otherwise duplicate whole lines across the region."
-  (interactive)
-  (if (region-active-p)
-      (duplicator--duplicate-whole-lines-in-region)
-    (duplicator--duplicate-current-line)))
+(defun duplicator/duplicate-lines (n)
+  "Duplicate lines. If region is not active, duplicate current line, otherwise
+duplicate whole lines across the region. Execute n time if prefix argument is
+given."
+  (interactive "p")
+  (dotimes (time (or n 1))
+    (if (region-active-p)
+        (duplicator--duplicate-whole-lines-in-region)
+      (duplicator--duplicate-current-line))))
 
 (defun duplicator--duplicate-whole-lines-in-region ()
   "Duplicate whole lines across the current region"
