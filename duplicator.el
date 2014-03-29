@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Rangi Lin
 
 ;; Author: Rangi Lin <rangiltw at google mail>
-;; Version: 0.1.0
+;; Version: 0.2.0
 
 ;; This file is not part of GNU Emacs.
 
@@ -24,8 +24,10 @@
 
 ;; Duplicator is a small package that help you duplicate lines.
 ;;
-;; 1. It never pollute kill ring
-;; 2. It duplicate whole lines across region even if region didn't cover all
+;; 1. Duplicate current line if no region is active
+;; 2. Duplicate all lines in the region if region is active
+;; 3. Support prefix argument to execute multiple times
+;; 4. Never pollute kill ring
 
 ;; ## Usage:
 ;;

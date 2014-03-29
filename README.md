@@ -3,8 +3,10 @@ duplicator
 
 Duplicator is a small package that help you duplicate lines.
 
-1. It never pollute kill ring
-2. It duplicate whole lines across region even if region didn't cover all
+1. Duplicate current line if no region is active
+2. Duplicate all lines in the region if region is active
+3. Support prefix argument to execute multiple times
+4. Never pollute kill ring
 
 ## Usage:
 
@@ -12,9 +14,13 @@ Duplicator is a small package that help you duplicate lines.
 (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
 
 ## Limitations:
-enable transient-mark-mode is required
+
+Enable transient-mark-mode is required
 
 ## Change Log:
+
+### 0.2.0
++ support prefix argument
 
 ### 0.1.0
 + duplicate current lines/whole lines across region
