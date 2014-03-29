@@ -40,6 +40,7 @@ Feature: Duplicate Lines
   Scenario: Duplicate lines in region if region is active
     Given I insert:
     """
+    Pangram :
     The quick brown fox
     jumps over the lazy dog
     """
@@ -49,6 +50,7 @@ Feature: Duplicate Lines
     When I press "C-c d"
     Then I should see:
     """
+    Pangram :
     The quick brown fox
     jumps over the lazy dog
     The quick brown fox

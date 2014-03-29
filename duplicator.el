@@ -44,28 +44,31 @@
 duplicate whole lines across the region. Execute n time if prefix argument is
 given."
   (interactive "p")
-  (dotimes (time (or n 1))
-    (if (region-active-p)
-        (duplicator--duplicate-whole-lines-in-region)
-      (duplicator--duplicate-current-line))))
+  (if (region-active-p)
+      (duplicator--duplicate-whole-lines-in-region n)
+    (duplicator--duplicate-current-line n)))
 
-(defun duplicator--duplicate-whole-lines-in-region ()
-  "Duplicate whole lines across the current region"
+(defun duplicator--duplicate-whole-lines-in-region (n)
+  "Duplicate whole lines across the current region N times"
   (let* ((pair (duplicator--whole-line-point-pair))
          (start (car pair))
          (end (cdr pair))
-         (lines (substring-no-properties (filter-buffer-substring start end)))
+         (lines (duplicator--add-trailing-newline
+                 (substring-no-properties (filter-buffer-substring start end))))
          (column (current-column)))
     (goto-char start)
-    (insert (duplicator--add-trailing-newline lines))
+    (dotimes (time (or n 1))
+      (insert lines))
     (move-to-column column)))
 
-(defun duplicator--duplicate-current-line ()
-  "Duplicate current lines"
-  (let ((current-line (substring-no-properties (thing-at-point 'line)))
+(defun duplicator--duplicate-current-line (n)
+  "Duplicate current lines N times"
+  (let ((current-line (duplicator--add-trailing-newline
+                       (substring-no-properties (thing-at-point 'line))))
         (column (current-column)))
     (beginning-of-line)
-    (insert (duplicator--add-trailing-newline current-line))
+    (dotimes (time (or n 1))
+      (insert current-line))
     (move-to-column column)))
 
 (defun duplicator--add-trailing-newline (string)
@@ -75,13 +78,13 @@ given."
     (concat string "\n")))
 
 (defun duplicator--whole-line-point-pair ()
-  "Return a cons cell according to given point and mark position. First argument is point
-of beginning of the line where region starts, second argument is the point of end of the
-line where region ends"
+  "Return a cons cell according to current point and mark position. First argument of cons
+cell is point of beginning of the line where region starts, second argument is the point
+ of end of the line where region ends"
   (let ((num-of-lines (count-lines (point) (mark))))
     (cond
      ((< (point) (mark)) (cons (line-beginning-position) (line-end-position num-of-lines)))
-     ((> (point) (mark)) (cons (line-beginning-position (- (- num-of-lines 1))) (line-end-position)))
+     ((> (point) (mark)) (cons (line-beginning-position (- 1 (1- num-of-lines))) (line-end-position)))
      (t (cons (line-beginning-position) (line-end-position))))))
 
 (provide 'duplicator)
