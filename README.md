@@ -9,9 +9,10 @@ Duplicator is a small package that help you duplicate lines.
 4. Never pollute kill ring
 
 ## Usage:
-
+```lisp
 (require 'duplicator)
 (global-set-key (kbd "C-c d") 'duplicator/duplicate-lines)
+```
 
 ## Limitations:
 
