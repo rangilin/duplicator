@@ -8,6 +8,10 @@ Duplicator is a small package that help you duplicate lines.
 3. Support prefix argument to execute multiple times
 4. Never pollute kill ring
 
+![duplicate current line](gifs/duplicate-current-line.gif)
+
+![duplicate lines in region](gifs/duplicate-lines-in-region.gif)
+
 ## Usage:
 ```lisp
 (require 'duplicator)
