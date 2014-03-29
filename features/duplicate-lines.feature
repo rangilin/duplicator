@@ -19,18 +19,6 @@ Feature: Duplicate Lines
 
     """
 
-  Scenario: Duplicate current line will preserve leading whitespace
-    Given I insert:
-    """
-        The quick brown fox jumps over the lazy dog
-    """
-    When I press "C-c d"
-    Then I should see:
-    """
-        The quick brown fox jumps over the lazy dog
-        The quick brown fox jumps over the lazy dog
-    """
-
 
   Scenario: Duplicate line will leave the cursor at the same column of the newer line
     Given I insert:
