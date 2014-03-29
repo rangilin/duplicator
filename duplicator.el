@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Rangi Lin
 
 ;; Author: Rangi Lin <rangiltw at google mail>
-;; Version: 0.2.0
+;; Version: 0.2.1
 
 ;; This file is not part of GNU Emacs.
 

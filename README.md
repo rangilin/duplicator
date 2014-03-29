@@ -20,6 +20,10 @@ Enable transient-mark-mode is required
 
 ## Change Log:
 
+### 0.2.1
++ fix duplicate whole lines in region may duplicate line above region
++ duplicate whole lines in region should now works with prefix argument properly
+
 ### 0.2.0
 + support prefix argument
 
