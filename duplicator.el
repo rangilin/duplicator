@@ -83,9 +83,13 @@ cell is point of beginning of the line where region starts, second argument is t
  of end of the line where region ends"
   (let ((num-of-lines (count-lines (point) (mark))))
     (cond
-     ((< (point) (mark)) (cons (line-beginning-position) (line-end-position num-of-lines)))
-     ((> (point) (mark)) (cons (line-beginning-position (- 1 (1- num-of-lines))) (line-end-position)))
-     (t (cons (line-beginning-position) (line-end-position))))))
+     ((< (point) (mark))
+      (cons (line-beginning-position) (line-end-position num-of-lines)))
+     ((> (point) (mark))
+      (exchange-point-and-mark)
+      (cons (line-beginning-position) (line-end-position num-of-lines)))
+     (t
+      (cons (line-beginning-position) (line-end-position))))))
 
 (provide 'duplicator)
 ;;; duplicator.el ends here
