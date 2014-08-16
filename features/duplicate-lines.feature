@@ -166,3 +166,23 @@ Feature: Duplicate Lines
     The quick brown fox
     jumps over the lazy dog
     """
+
+
+  Scenario: Duplicate lines when whole linens in region
+    Given  I insert:
+    """
+    The quick brown fox jumps over the lazy dog
+
+    """
+    And I place the cursor after "quick"
+    And I go to beginning of line
+    And I set the mark
+    And I press "C-n"
+    When I press "C-c d"
+    Then I should see:
+    """
+    The quick brown fox jumps over the lazy dog
+
+    The quick brown fox jumps over the lazy dog
+
+    """
