@@ -24,6 +24,9 @@ Enable transient-mark-mode is required
 
 ## Change Log:
 
+### 0.2.2
++ fix bug when duplicate lines in region with newline character at the end
+
 ### 0.2.1
 + fix duplicate whole lines in region may duplicate line above region
 + duplicate whole lines in region should now works with prefix argument properly
@@ -39,7 +42,7 @@ Enable transient-mark-mode is required
 Copyright (C) 2014 Rangi Lin
 
 Author: Rangi Lin <rangiltw at google mail>
-Version: 0.1.0
+Version: 0.2.2
 
 This file is not part of GNU Emacs.
 
