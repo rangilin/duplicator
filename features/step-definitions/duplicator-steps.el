@@ -2,6 +2,8 @@
 ;; files in this directory whose names end with "-steps.el" will be
 ;; loaded automatically by Ecukes.
 
+(eval-when-compile (require 'cl))
+
 (Given "^Kill ring is empty$"
        (lambda ()
          (setq kill-ring nil)))
